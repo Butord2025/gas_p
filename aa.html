@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чотирикутник з тінями</title>
+    <style>
+        .container {
+            width: 1280px;
+            height: 135px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f4f8;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .shadow-box {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            position: relative;
+            box-shadow: 
+                0 2px 15px rgba(0, 0, 0, 0.1),
+                0 5px 10px rgba(0, 0, 0, 0.04),
+                0 7px 8px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e3e9f0;
+        }
+        
+        .shadow-box::before,
+        .shadow-box::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            z-index: -1;
+        }
+        
+        .shadow-box::before {
+            left: -20px;
+            background: linear-gradient(to right, 
+                        rgba(0,0,0,0.03) 0%, 
+                        rgba(0,0,0,0.01) 50%, 
+                        transparent 100%);
+        }
+        
+        .shadow-box::after {
+            right: -20px;
+            background: linear-gradient(to left, 
+                        rgba(0,0,0,0.03) 0%, 
+                        rgba(0,0,0,0.01) 50%, 
+                        transparent 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shadow-box"></div>
+    </div>
+</body>
+</html>

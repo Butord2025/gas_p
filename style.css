@@ -1,0 +1,131 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body{
+    overflow: hidden;
+    background-color: #ECF3F9;
+}
+
+img {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.price {
+    position: absolute;
+    color: white;
+    font-size: 3.5vw;
+    font-family: 'Fjalla One';
+    top: 35vh;
+    font-weight: 600;
+    display: block;
+    color: black;
+}
+
+
+
+#running-line{
+    position: absolute;
+    font-size: 40px;
+    top: 20px;
+}
+
+ .iframe-wrapper {
+    width: 360px;
+    height: 900px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #frame {
+    width: 360px;
+    height: 900px;
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  #asdf{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+.price-box {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 16px 0px rgba(196, 206, 214, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    color: rgb(255, 249, 249);
+    font-family: "Fjalla One", sans-serif;
+}
+
+.top-box {
+  align-self: flex-start;
+  margin-left: 20px; 
+  font-size: 50px;
+  font-weight: 550;
+}
+
+.bottom-box {
+  align-self: center;
+  font-size: 74px;
+  font-weight: 800;
+}
+
+.container {
+      width: 95vw;
+      background: linear-gradient(45deg, #D6E1F6, #9FAFC7);
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: absolute;
+      margin-left: 1.25vw;
+      top: 82vh;
+      height: 10vh;
+      z-index: 5;
+    }
+
+    .item {
+      font-family: "Kanit", sans-serif;
+      font-weight: 700;         font-style: normal;
+      display: flex;
+      align-items: center;
+      gap: 1.8vw;
+      color: black;
+      flex: 1;
+      justify-content: center;
+      position: relative;
+      font-size: 3.4vw;
+    }
+
+    .item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 0.15vw;
+      background-color: black;
+      opacity: 0.4;
+      height: 5vh;
+    }
+
+    .label-red { background: linear-gradient(to right, #CC0303, #FF0000); -webkit-background-clip: text; -webkit-text-fill-color: transparent;   font-family: "Martian Mono", monospace; font-size: 2.8vw; font-weight: 900; margin-top: 2px;}
+    .label-green { background: linear-gradient(to right, #0D7E00, #14D027); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: "Martian Mono", monospace; font-size: 2.8vw; font-weight: 900;}
+    .label-blue { background: linear-gradient(to right, #112E8C, #0065FD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: "Martian Mono", monospace; font-size: 2.8vw; font-weight: 900;}
+    .label-pink { background: linear-gradient(to right, #BB0093, #FF00DD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: "Martian Mono", monospace; font-size: 2.8vw; font-weight: 900;}
