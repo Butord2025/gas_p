@@ -9,7 +9,7 @@ function changeSlide() {
 
 async function fetchPriceFromExcel() {
   try {
-    const response = await fetch("https://gas-backend.onrender.com/prices");
+    const response = await fetch("https://gas-backend-8dtj.onrender.com/prices");
     const data = await response.json();
 
     document.querySelector('#price1').innerHTML = `<span class="label-red">A92</span> ${data.a92}`;
