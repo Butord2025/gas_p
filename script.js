@@ -60,4 +60,4 @@ function checkForRefresh() {
 setInterval(checkForRefresh, 60 * 1000);
 setInterval(() => changeSlide(), 2000);
 
-window.onload = fetchPrice;
+window.onload = fetchPriceFromExcel;
