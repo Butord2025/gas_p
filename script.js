@@ -9,19 +9,24 @@ function changeSlide() {
 
 async function fetchPrice() {  
   try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id"); 
-    const response = await fetch(`https://translation-server-main.onrender.com/prices?id=${encodeURIComponent(id)}`);
-    const json = await response.json();
+    const response = await fetch("https://excel.officeapps.live.com/x/_layouts/XlFileHandler.aspx?sheetName=%D0%A6%D0%86%D0%9D&downloadAsCsvEnabled=1&WacUserType=WOPI&usid=1cf43880-3e1d-5674-b721-8e7f909484a7&NoAuth=1&waccluster=NO4
+");
 
-    if (response.ok) {
-      data = JSON.parse(JSON.stringify(json.data));
-      for (let i = 0; i < 4; i++) {
-        document.querySelector('#price' + (i+1)).childNodes[1].nodeValue = ' ' +  data[i];
-      }
-    } else { console.log(`Error: ${json.error || "Unknown error"}`) }
+    const csv = await response.text();
+    const lines = csv.split('\n');
+    const olasLine = lines.find(line => line.includes("Олас Рівне"));
+
+    if (olasLine) {
+      const values = olasLine.split(';')
+      document.querySelector('#price1').innerHTML = `<span class="label-red">A92</span> ${values[1]}`;
+      document.querySelector('#price2').innerHTML = `<span class="label-green">A95</span> ${values[2]}`;
+      document.querySelector('#price3').innerHTML = `<span class="label-blue">ДП</span> ${values[3]}`;
+      document.querySelector('#price4').innerHTML = `<span class="label-pink">ГАЗ</span> ${values[4]}`;
+    } else {
+      console.error("Рядок 'Олас Рівне' не знайдено.");
+    }
   } catch (err) {
-    console.log(`Request failed: ${err.message}`);
+    console.error("Помилка завантаження CSV:", err.message);
   }
 }
 
@@ -43,5 +48,5 @@ setInterval(checkForRefresh, 60 * 1000);
 setInterval(() => { changeSlide() }, 2000);
 
 window.onload = function() {
-  fetchPrice()
-};
+  fetchPrice();
+}
