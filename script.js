@@ -7,32 +7,42 @@ function changeSlide() {
   document.getElementById('slide').src = 'slides/' + currentSlide + '.png';
 }
 
-async function fetchPrice() {
+async function fetchPriceFromExcel() {
   try {
-    const response = await fetch("https://excel.officeapps.live.com/x/_layouts/XlFileHandler.aspx?sheetName=ЦІН&downloadAsCsvEnabled=1&WacUserType=WOPI&usid=1cf43880-3e1d-5674-b721-8e7f909484a7&NoAuth=1&waccluster=NO4");
+    const url = 'https://onedrive.live.com/download?resid=ED7EB020544F6733%21113&authkey=%21ACNac6VLwtHQfZk&em=2';
 
-    const csv = await response.text();
-console.log(text.split('\n').slice(0,5).join('\n'));
-    const lines = csv.trim().split('\n');
-    const dataRows = lines.slice(1);
-    const olasLine = dataRows.find(row => row.split(',')[0].includes("Олас Рівне"));
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
 
-    if (!olasLine) {
-      console.error("Рядок 'Олас Рівне' не знайдено.");
+    // Читання Excel
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+
+    // Отримати всі дані як масив масивів
+    const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    console.log("Excel дані:", data);
+
+    // Пропускаємо перший рядок (заголовки), беремо другий рядок (перші ціни)
+    const firstRow = data[1];  // data[0] — заголовки
+
+    if (!firstRow || firstRow.length < 4) {
+      console.error("Недостатньо даних у другому рядку.");
       return;
     }
 
-    const values = olasLine.split(',');
-
-    document.querySelector('#price1').innerHTML = `<span class="label-red">A92</span> ${values[1]}`;
-    document.querySelector('#price2').innerHTML = `<span class="label-green">A95</span> ${values[2]}`;
-    document.querySelector('#price3').innerHTML = `<span class="label-blue">ДП</span> ${values[3]}`;
-    document.querySelector('#price4').innerHTML = `<span class="label-pink">ГАЗ</span> ${values[4]}`;
+    document.querySelector('#price1').innerHTML = `<span class="label-red">A92</span> ${firstRow[0]}`;
+    document.querySelector('#price2').innerHTML = `<span class="label-green">A95</span> ${firstRow[1]}`;
+    document.querySelector('#price3').innerHTML = `<span class="label-blue">ДП</span> ${firstRow[2]}`;
+    document.querySelector('#price4').innerHTML = `<span class="label-pink">ГАЗ</span> ${firstRow[3]}`;
 
   } catch (err) {
-    console.error("Помилка при fetchPrice:", err);
+    console.error("Помилка при завантаженні або обробці Excel:", err);
   }
 }
+
 
 function getKyivTime() {
   const kyivTime = new Date().toLocaleString("en-US", { timeZone: "Europe/Kyiv" });
