@@ -9,7 +9,8 @@ function changeSlide() {
 
 async function fetchPrice() {
   try {
-    const response = await fetch("https://excel.officeapps.live.com/x/_layouts/XlFileHandler.aspx?sheetName=%D0%A6%D0%86%D0%9D&downloadAsCsvEnabled=1&WacUserType=WOPI&usid=1cf43880-3e1d-5674-b721-8e7f909484a7&NoAuth=1&waccluster=NO4");
+    const response = await fetch("https://excel.officeapps.live.com/x/_layouts/XlFileHandler.aspx?sheetName=ЦІН&downloadAsCsvEnabled=1&WacUserType=WOPI&usid=1cf43880-3e1d-5674-b721-8e7f909484a7&NoAuth=1&waccluster=NO4");
+
     const csv = await response.text();
 
     const lines = csv.trim().split('\n');
