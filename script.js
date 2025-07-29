@@ -12,7 +12,7 @@ async function fetchPrice() {
     const response = await fetch("https://excel.officeapps.live.com/x/_layouts/XlFileHandler.aspx?sheetName=ЦІН&downloadAsCsvEnabled=1&WacUserType=WOPI&usid=1cf43880-3e1d-5674-b721-8e7f909484a7&NoAuth=1&waccluster=NO4");
 
     const csv = await response.text();
-
+console.log(text.split('\n').slice(0,5).join('\n'));
     const lines = csv.trim().split('\n');
     const dataRows = lines.slice(1);
     const olasLine = dataRows.find(row => row.split(',')[0].includes("Олас Рівне"));
