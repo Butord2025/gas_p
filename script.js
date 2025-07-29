@@ -9,39 +9,18 @@ function changeSlide() {
 
 async function fetchPriceFromExcel() {
   try {
-    const url = `https://onedrive.live.com/download?resid=ED7EB020544F6733%21113&authkey=%21ACNac6VLwtHQfZk&em=2&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True`;
+    const response = await fetch("https://gas-backend.onrender.com/prices");
+    const data = await response.json();
 
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const arrayBuffer = await blob.arrayBuffer();
-
-    // Читання Excel
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-    const sheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[sheetName];
-
-    // Отримати всі дані як масив масивів
-    const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-    console.log("Excel дані:", data);
-
-    // Пропускаємо перший рядок (заголовки), беремо другий рядок (перші ціни)
-    const firstRow = data[1];  // data[0] — заголовки
-
-    if (!firstRow || firstRow.length < 4) {
-      console.error("Недостатньо даних у другому рядку.");
-      return;
-    }
-
-    document.querySelector('#price1').innerHTML = `<span class="label-red">A92</span> ${firstRow[0]}`;
-    document.querySelector('#price2').innerHTML = `<span class="label-green">A95</span> ${firstRow[1]}`;
-    document.querySelector('#price3').innerHTML = `<span class="label-blue">ДП</span> ${firstRow[2]}`;
-    document.querySelector('#price4').innerHTML = `<span class="label-pink">ГАЗ</span> ${firstRow[3]}`;
-
+    document.querySelector('#price1').innerHTML = `<span class="label-red">A92</span> ${data.a92}`;
+    document.querySelector('#price2').innerHTML = `<span class="label-green">A95</span> ${data.a95}`;
+    document.querySelector('#price3').innerHTML = `<span class="label-blue">ДП</span> ${data.dp}`;
+    document.querySelector('#price4').innerHTML = `<span class="label-pink">ГАЗ</span> ${data.gaz}`;
   } catch (err) {
-    console.error("Помилка при завантаженні або обробці Excel:", err);
+    console.error("Не вдалося отримати ціни:", err);
   }
 }
+
 
 
 function getKyivTime() {
